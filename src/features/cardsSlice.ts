@@ -16,8 +16,8 @@ const cardAdapter = createEntityAdapter<Card>({
 })
 
 const { selectAll } = cardAdapter.getSelectors((state: RootState) => state.cards)
-// const { selectAll, selectById } = cardAdapter.getSelectors((state: RootState) => state.cards)
 export const selectAllCards = selectAll
+// const { selectAll, selectById } = cardAdapter.getSelectors((state: RootState) => state.cards)
 // export const selectCardById = selectById
 
 export const cardsSlice = createSlice({
@@ -31,6 +31,11 @@ export const cardsSlice = createSlice({
   },
 })
 
-export const { cardsAddOne, cardsAddMany, cardUpdate, cardRemove } = cardsSlice.actions
+export const {
+  cardsAddOne,
+  // cardsAddMany,
+  cardUpdate,
+  cardRemove
+} = cardsSlice.actions
 
 export default cardsSlice.reducer

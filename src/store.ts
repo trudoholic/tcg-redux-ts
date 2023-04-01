@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import cardsSlice from './features/cardsSlice';
 import { cardsSlice } from './features';
 
 const store = configureStore({
