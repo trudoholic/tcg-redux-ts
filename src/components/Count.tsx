@@ -5,12 +5,12 @@ export default function Count() {
   const {
     count,
     // initialize,
-    setCount,
+    handleCount,
   } = useCount()
 
   return (
     <div className="card">
-      <button onClick={() => setCount((count) => count + 1)}>
+      <button onClick={handleCount}>
         count is {count}
       </button>
     </div>

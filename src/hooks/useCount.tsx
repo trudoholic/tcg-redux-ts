@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import {useCallback, useEffect, useState} from 'react'
 
 const useCount = () => {
   const [count, setCount] = useState(0)
@@ -8,14 +8,17 @@ const useCount = () => {
   }, [])
 
   const initialize = useCallback(() => {
-    console.log(">>")
-    console.log("initialize")
+    setCount(0)
   }, [])
+
+  const handleCount = useCallback(() => {
+    setCount(count => count + 1)
+  }, [count])
 
   return {
     count,
     // initialize,
-    setCount,
+    handleCount,
   }
 }
 
