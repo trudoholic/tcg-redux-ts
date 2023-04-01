@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import {
   selectAllCards,
@@ -10,6 +10,11 @@ import {
 
 const useCards = () => {
   const [count, setCount] = useState(0)
+  const [selectedId, setSelectedId] = useState(0)
+
+  const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    setSelectedId(+(e.target as HTMLElement).id)
+  }, [])
 
   const dispatch = useDispatch()
 
@@ -17,37 +22,41 @@ const useCards = () => {
   // console.log(cards)
 
   const cardItems = cards.map(card =>
-    <li key={card.id}>
-      {card.name}
+    <li
+      key={card.id}
+      className={card.flag ? "flag" : ""}
+      id={"" + card.id}
+      onClick={handleClick}
+    >
+      {card.id === selectedId ? `[ ${card.name} ]` : card.name}
     </li>
   );
 
   const handleAddOne = useCallback(() => {
     dispatch(cardsAddOne({
       id: count,
-      name: "card_" + count,
+      name: `card_${count<10?"0":""}${count}`,
       flag: false,
     }))
+    setSelectedId(count)
     setCount(count => count + 1)
   }, [count])
 
   const handleUpdate = useCallback(() => {
-    const card = cards.at(0)
+    const card = cards.find(it => it.id === selectedId)
     if (card) {
-      const data = {
-        name: `[${card.name}]`,
-        flag: true,
-      }
-      dispatch(cardUpdate({ id: card.id, changes: data }))
+      dispatch(cardUpdate({ id: card.id, changes: {flag: !card.flag} }))
     }
-  }, [cards])
+  }, [cards, selectedId])
 
   const handleRemove = useCallback(() => {
-    const card = cards.at(0)
+    const idx = cards.findIndex(it => it.id === selectedId)
+    dispatch(cardRemove(selectedId))
+    const card = cards.at(idx - 1)
     if (card) {
-      dispatch(cardRemove(card.id))
+      setSelectedId(+card.id)
     }
-  }, [cards])
+  }, [cards, selectedId])
 
   return {
     cardItems,
