@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
+import {getCard} from '../utils';
 import {
   selectAllCards,
   cardsAddOne,
@@ -9,7 +10,6 @@ import {
 } from '../features/cardsSlice';
 
 const useCards = () => {
-  const [count, setCount] = useState(0)
   const [selectedId, setSelectedId] = useState("")
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -33,15 +33,10 @@ const useCards = () => {
   );
 
   const handleAddOne = useCallback(() => {
-    const cardId = "card_" + count.toString().padStart(3, "0")
-    dispatch(cardsAddOne({
-      id: cardId,
-      name: cardId,
-      flag: false,
-    }))
-    setSelectedId(cardId)
-    setCount(count => count + 1)
-  }, [count])
+    const card = getCard()
+    dispatch(cardsAddOne(card))
+    setSelectedId(card.id)
+  }, [])
 
   const handleUpdate = useCallback(() => {
     const card = cards.find(it => it.id === selectedId)
