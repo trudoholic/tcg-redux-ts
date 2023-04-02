@@ -10,10 +10,10 @@ import {
 
 const useCards = () => {
   const [count, setCount] = useState(0)
-  const [selectedId, setSelectedId] = useState(0)
+  const [selectedId, setSelectedId] = useState("")
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    setSelectedId(+(e.target as HTMLElement).id)
+    setSelectedId((e.target as HTMLElement).id)
   }, [])
 
   const dispatch = useDispatch()
@@ -33,12 +33,13 @@ const useCards = () => {
   );
 
   const handleAddOne = useCallback(() => {
+    const cardId = "card_" + count.toString().padStart(3, "0")
     dispatch(cardsAddOne({
-      id: count,
-      name: `card_${count<10?"0":""}${count}`,
+      id: cardId,
+      name: cardId,
       flag: false,
     }))
-    setSelectedId(count)
+    setSelectedId(cardId)
     setCount(count => count + 1)
   }, [count])
 
@@ -54,7 +55,7 @@ const useCards = () => {
     dispatch(cardRemove(selectedId))
     const card = cards.at(idx - 1)
     if (card) {
-      setSelectedId(+card.id)
+      setSelectedId(card.id)
     }
   }, [cards, selectedId])
 

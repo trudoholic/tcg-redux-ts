@@ -5,7 +5,7 @@ import {
 import { RootState } from '../store'
 
 export interface Card {
-  id: number
+  id: string
   name: string
   flag: boolean
 }
