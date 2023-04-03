@@ -11,3 +11,9 @@ export const getCard = (): Card => {
     flag: false,
   }
 }
+
+export const getCards = (num: number): Card[] => {
+  return Array(num).fill(0).map(
+    it => getCard()
+  )
+}

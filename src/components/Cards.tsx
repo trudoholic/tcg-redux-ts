@@ -5,6 +5,7 @@ export default function Cards() {
   const {
     cardItems,
     handleAddOne,
+    handleAddMany,
     handleUpdate,
     handleRemove,
   } = useCards()
@@ -13,6 +14,9 @@ export default function Cards() {
     <div className="card">
       <button onClick={handleAddOne}>
         AddOne
+      </button>
+      <button onClick={handleAddMany}>
+        AddMany
       </button>
       <button onClick={handleUpdate}>
         Update

@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import {getCard} from '../utils';
+import {getCard, getCards} from '../utils';
 import {
   selectAllCards,
   cardsAddOne,
-  // cardsAddMany,
+  cardsAddMany,
   cardUpdate,
   cardRemove,
 } from '../features/cardsSlice';
@@ -38,6 +38,14 @@ const useCards = () => {
     setSelectedId(card.id)
   }, [])
 
+  const handleAddMany = useCallback(() => {
+    const cards = getCards(3)
+    if (cards.length) {
+      dispatch(cardsAddMany(cards))
+      setSelectedId(cards.at(-1)!.id)
+    }
+  }, [])
+
   const handleUpdate = useCallback(() => {
     const card = cards.find(it => it.id === selectedId)
     if (card) {
@@ -57,6 +65,7 @@ const useCards = () => {
   return {
     cardItems,
     handleAddOne,
+    handleAddMany,
     handleUpdate,
     handleRemove,
   }

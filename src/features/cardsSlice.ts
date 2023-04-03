@@ -33,7 +33,7 @@ export const cardsSlice = createSlice({
 
 export const {
   cardsAddOne,
-  // cardsAddMany,
+  cardsAddMany,
   cardUpdate,
   cardRemove
 } = cardsSlice.actions
