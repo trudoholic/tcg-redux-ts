@@ -4,7 +4,6 @@ import useFlow from "../hooks/useFlow";
 export default function Flow() {
   const {
     gameOver,
-    flow,
     handleStartGame,
     handleNext,
     handleEndGame,
@@ -20,7 +19,7 @@ export default function Flow() {
         </>
         : <>
           <button onClick={handleNext}>
-            count is {flow}
+            next
           </button>
           <button onClick={handleEndGame}>
             end
