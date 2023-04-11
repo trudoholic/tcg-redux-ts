@@ -7,6 +7,7 @@ export default function Flow() {
     handleStartGame,
     handleNext,
     handleEndGame,
+    curPlay,
   } = useFlow()
 
   return (
@@ -19,7 +20,7 @@ export default function Flow() {
         </>
         : <>
           <button onClick={handleNext}>
-            next
+            {`next: ${curPlay}`}
           </button>
           <button onClick={handleEndGame}>
             end

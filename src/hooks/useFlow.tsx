@@ -1,31 +1,11 @@
 import {useCallback, useState} from 'react';
-import {nPlayers} from '../utils/constants';
-
-/* Solarized */
-// const BLUE    = '#268bd2'
-// const CYAN    = '#2aa198'
-const GREEN   = '#859900'
-// const MAGENTA = '#d33682'
-// const ORANGE  = '#cb4b16'
-// const RED     = '#dc322f'
-// const VIOLET  = '#6c71c4'
-// const YELLOW  = '#b58900'
-
-function* getNumber(max: number): Iterator<number> {
-  let i = 0
-  while (i < max) {
-    yield i++
-  }
-}
-const reset = () => getNumber(nPlayers)
-
-let gameTurnIterator = reset()
-let playTurnIterator = reset()
+import * as gameTurn from '../scripts/script01/gameTurn';
+import * as playTurn from '../scripts/script01/playTurn';
 
 const useFlow = () => {
   const [gameOver, setGameOver] = useState(true)
-  const [, setGameTurn] = useState(0) //gameTurn
-  const [, setPlayTurn] = useState(0) //playTurn
+  // const [, setGameTurn] = useState(0) //gameTurn
+  const [curPlay, setCurPlay] = useState(0)
 
   // const handleFlow = useCallback(() => {
   //   setFlow(p => (p + 1) % nPlayers)
@@ -37,60 +17,61 @@ const useFlow = () => {
   // ====== Game ======
 
   const handleStartGame = useCallback(() => {
-    console.log("Start Game")
+    console.log("### Start Game ###")
+    console.log("### Рисуем пулю ###")
     setGameOver(false)
-    handleStartGameTurn()
+    handleNextGameTurn()
   }, [])
 
   const handleEndGame = useCallback(() => {
     setGameOver(true)
     handleEndGameTurn()
-    console.log("Game Over!")
+    console.log("### Считаем пулю ###")
+    console.log("### Game Over! ###")
   }, [])
 
   // ====== Game Turn ======
 
-  const handleStartGameTurn = useCallback(() => {
-    let gameTurn = gameTurnIterator.next()
-    if (gameTurn.done) {
-      console.log("Round!")
-      gameTurnIterator = reset()
-      gameTurn = gameTurnIterator.next()
-    }
-    console.group(`%c Game Turn: ${gameTurn.value}`, 'color:' + GREEN)
-
-    playTurnIterator = reset()
-    const playTurn = playTurnIterator.next()
-    setPlayTurn(playTurn.value)
-    console.log(">", playTurn.value)
+  const handleNextGameTurn = useCallback(() => {
+    gameTurn.onStart()
+    handleNextPlayTurn()
   }, [])
 
   const handleEndGameTurn = useCallback(() => {
-    console.groupEnd()
+    gameTurn.onEnd()
   }, [])
+
+  // ====== Play Turn ======
+
+  const handleNextPlayTurn = useCallback(() => {
+    playTurn.onStart()
+    setCurPlay(playTurn.getValue())
+  }, [])
+
+  // const handleEndPlayTurn = useCallback(() => {
+  // }, [])
 
   // ====== Next ======
 
   const handleNext = useCallback(() => {
-    // const next = gameTurnIterator.next()
-    const playTurn = playTurnIterator.next()
-    if (playTurn.done) {
+    playTurn.onNext()
+    if (playTurn.isDone()) {
       handleEndGameTurn()
-      handleStartGameTurn()
-      return
+      handleNextGameTurn()
     }
-    console.log(">", playTurn.value)
-    // setGameTurn(next.value)
-    setPlayTurn(playTurn.value)
+    else {
+      setCurPlay(playTurn.getValue())
+    }
   }, [])
 
-
+  // ====== # ======
 
   return {
     gameOver,
     handleStartGame,
     handleNext,
     handleEndGame,
+    curPlay,
   }
 }
 
