@@ -1,20 +1,34 @@
 import {reset} from ".";
 import {GREEN} from "../../utils/solarized";
 
-let gameTurnIterator = reset()
+let turnIterator = reset()
+let next = turnIterator.next()
+
+export function isDone() {
+  return next.done
+}
+
+export function getValue() {
+  return next.value
+}
+
+export function onNext() {
+  next = turnIterator.next()
+  if (!next.done) {
+    console.log(`%c Раздаёт: ${next.value}`, 'color:' + GREEN)
+    console.group(`%c Game Turn: ${next.value}`, 'color:' + GREEN)
+  }
+}
 
 export function onStart() {
-  let gt = gameTurnIterator.next()
-  if (gt.done) {
-    console.log("-- Round! --")
-    gameTurnIterator = reset()
-    gt = gameTurnIterator.next()
-  }
+  turnIterator = reset()
+}
 
-  console.log(`Раздаёт ${gt.value}`)
-  console.group(`%c Game Turn: ${gt.value}`, 'color:' + GREEN)
+export function onRound() {
+  console.log("-- Round! --")
 }
 
 export function onEnd() {
+  console.log(`%c End: ${next.value}`, 'color:' + GREEN)
   console.groupEnd()
 }

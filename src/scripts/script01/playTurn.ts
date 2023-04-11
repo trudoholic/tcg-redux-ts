@@ -1,8 +1,8 @@
 import {reset} from ".";
 import {BLUE} from "../../utils/solarized";
 
-let playTurnIterator = reset()
-let next = playTurnIterator.next()
+let turnIterator = reset()
+let next = turnIterator.next()
 
 export function isDone() {
   return next.done
@@ -13,14 +13,14 @@ export function getValue() {
 }
 
 export function onNext() {
-  next = playTurnIterator.next()
+  next = turnIterator.next()
   if (!next.done) {
-    console.log(`%c > ${next.value}`, 'color:' + BLUE)
+    console.log(`%c -> ${next.value}`, 'color:' + BLUE)
   }
 }
 
 export function onStart() {
-  playTurnIterator = reset()
+  turnIterator = reset()
   onNext()
 }
 

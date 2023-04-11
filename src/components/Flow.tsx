@@ -4,9 +4,11 @@ import useFlow from "../hooks/useFlow";
 export default function Flow() {
   const {
     gameOver,
+    gameGoal,
     handleStartGame,
-    handleNext,
     handleEndGame,
+    handleNext,
+    handleGameGoal,
     curPlay,
   } = useFlow()
 
@@ -18,14 +20,20 @@ export default function Flow() {
             start
           </button>
         </>
-        : <>
-          <button onClick={handleNext}>
-            {`next: ${curPlay}`}
-          </button>
-          <button onClick={handleEndGame}>
-            end
-          </button>
-        </>
+        : gameGoal
+          ? <>
+            <button onClick={handleEndGame}>
+              end
+            </button>
+          </>
+          : <>
+            <button onClick={handleNext}>
+              {`next: ${curPlay}`}
+            </button>
+            <button onClick={handleGameGoal}>
+              goal
+            </button>
+          </>
       }
     </div>
   )
