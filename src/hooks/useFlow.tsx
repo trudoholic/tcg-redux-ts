@@ -29,6 +29,7 @@ const useFlow = () => {
   }, [])
 
   const handleEndGame = useCallback(() => {
+    handleEndPlayTurn()
     handleEndGameTurn()
     setGameOver(true)
     setGameGoal(false)
