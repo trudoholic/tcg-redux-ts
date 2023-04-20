@@ -2,14 +2,16 @@ import {useCallback, useState} from 'react';
 import * as gameSession from '../scripts/script01/gameSession';
 import * as gameTurn from '../scripts/script01/gameTurn';
 import * as playTurn from '../scripts/script01/playTurn';
-import {BLUE} from "../utils/solarized";
+import * as beatTurn from '../scripts/script01/beatTurn';
+import {RED} from "../utils/solarized";
 
 const useFlow = () => {
   const [gameGoal, setGameGoal] = useState(false)
   const [gameRound, setGameRound] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const [, setCurGame] = useState(0) //curGame
+  const [curGame, setCurGame] = useState(0)
   const [curPlay, setCurPlay] = useState(0)
+  const [curBeat, setCurBeat] = useState(0)
 
   // const handleFlow = useCallback(() => {
   //   setFlow(p => (p + 1) % nPlayers)
@@ -18,7 +20,7 @@ const useFlow = () => {
   //   setFlow(p => (nPlayers + p - 1) % nPlayers)
   // }, [])
 
-  // ====== Game ======
+  // ====== Game Session ======
 
   const handleStartGame = useCallback(() => {
     gameSession.onStart()
@@ -50,9 +52,9 @@ const useFlow = () => {
       handleStartGameTurn()
     }
     else {
-      setCurGame(gameTurn.getValue())
       handleStartPlayTurn()
     }
+    setCurGame(gameTurn.getValue())
   }, [gameRound])
 
   const handleEndGameTurn = useCallback(() => {
@@ -63,35 +65,51 @@ const useFlow = () => {
 
   const handleStartPlayTurn = useCallback(() => {
     playTurn.onStart()
-    setCurPlay(playTurn.getValue())
+    handleNextPlayTurn()
   }, [])
 
   const handleNextPlayTurn = useCallback(() => {
-    console.log(`%c >> ${curPlay}`, 'color:' + BLUE)
     playTurn.onNext()
     if (playTurn.isDone()) {
       handleEndGameTurn()
       handleNextGameTurn()
     }
     else {
-      setCurPlay(playTurn.getValue())
+      handleStartBeatTurn()
     }
-  }, [curPlay])
+    setCurPlay(playTurn.getValue())
+  }, [])
 
-  // const handleEndPlayTurn = useCallback(() => {
-  // }, [])
+  const handleEndPlayTurn = useCallback(() => {
+    playTurn.onEnd()
+  }, [])
+
+  // ====== Beat ======
+
+  const handleStartBeatTurn = useCallback(() => {
+    beatTurn.onStart()
+  }, [])
+
+  const handleNextBeatTurn = useCallback(() => {
+    console.log(`%c >> ${beatTurn.getValue()}`, 'color:' + RED)
+    beatTurn.onNext()
+    if (beatTurn.isDone()) {
+      handleEndPlayTurn()
+      handleNextPlayTurn()
+    }
+    setCurBeat(beatTurn.getValue())
+  }, [])
 
   // ====== Next ======
 
   const handleNext = useCallback(() => {
-    // console.log(`%c >> ${curPlay}`, 'color:' + BLUE)
     if (gameGoal) {
       handleEndGame()
     }
     else {
-      handleNextPlayTurn()
+      handleNextBeatTurn()
     }
-  }, [curPlay, gameGoal])
+  }, [gameGoal])
 
   const handleGameGoal = useCallback(() => {
     setGameGoal(true)
@@ -105,7 +123,9 @@ const useFlow = () => {
     handleEndGame,
     handleNext,
     handleGameGoal,
+    curGame,
     curPlay,
+    curBeat,
     gameGoal,
   }
 }
