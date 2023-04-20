@@ -6,6 +6,7 @@ import {BLUE} from "../utils/solarized";
 
 const useFlow = () => {
   const [gameGoal, setGameGoal] = useState(false)
+  const [gameRound, setGameRound] = useState(0)
   const [gameOver, setGameOver] = useState(true)
   const [, setCurGame] = useState(0) //curGame
   const [curPlay, setCurPlay] = useState(0)
@@ -35,19 +36,24 @@ const useFlow = () => {
   // ====== Game Turn ======
 
   const handleStartGameTurn = useCallback(() => {
+    // console.log("handleStartGameTurn")
+    setGameRound(cur => cur + 1)
     gameTurn.onStart()
     handleNextGameTurn()
   }, [])
 
   const handleNextGameTurn = useCallback(() => {
     gameTurn.onNext()
+    // console.log("handleNextGameTurn", gameTurn.isDone())
     if (gameTurn.isDone()) {
-      gameTurn.onRound()
+      gameTurn.onRound(gameRound)
       handleStartGameTurn()
     }
-    setCurGame(gameTurn.getValue())
-    handleStartPlayTurn()
-  }, [])
+    else {
+      setCurGame(gameTurn.getValue())
+      handleStartPlayTurn()
+    }
+  }, [gameRound])
 
   const handleEndGameTurn = useCallback(() => {
     gameTurn.onEnd()
@@ -60,19 +66,8 @@ const useFlow = () => {
     setCurPlay(playTurn.getValue())
   }, [])
 
-  // const handleEndPlayTurn = useCallback(() => {
-  // }, [])
-
-  // ====== Next ======
-
-  const handleNext = useCallback(() => {
+  const handleNextPlayTurn = useCallback(() => {
     console.log(`%c >> ${curPlay}`, 'color:' + BLUE)
-
-    if (gameGoal) {
-      handleEndGame()
-      return
-    }
-
     playTurn.onNext()
     if (playTurn.isDone()) {
       handleEndGameTurn()
@@ -80,6 +75,21 @@ const useFlow = () => {
     }
     else {
       setCurPlay(playTurn.getValue())
+    }
+  }, [curPlay])
+
+  // const handleEndPlayTurn = useCallback(() => {
+  // }, [])
+
+  // ====== Next ======
+
+  const handleNext = useCallback(() => {
+    // console.log(`%c >> ${curPlay}`, 'color:' + BLUE)
+    if (gameGoal) {
+      handleEndGame()
+    }
+    else {
+      handleNextPlayTurn()
     }
   }, [curPlay, gameGoal])
 

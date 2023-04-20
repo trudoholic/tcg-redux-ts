@@ -24,11 +24,11 @@ export function onStart() {
   turnIterator = reset()
 }
 
-export function onRound() {
-  console.log("-- Round! --")
+export function onRound(round: number) {
+  console.log(`%c *** Round: ${round} ***`, 'color:' + GREEN)
 }
 
 export function onEnd() {
-  console.log(`%c End: ${next.value}`, 'color:' + GREEN)
+  console.log(`%c End Game Turn: ${next.value}`, 'color:' + GREEN)
   console.groupEnd()
 }
