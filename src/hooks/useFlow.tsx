@@ -1,17 +1,33 @@
 import {useCallback, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from "../store";
+import {
+  setCurGame,
+  setCurPlay,
+  setCurBeat,
+} from '../features/flowSlice';
+
 import * as gameSession from '../scripts/script01/gameSession';
 import * as gameTurn from '../scripts/script01/gameTurn';
 import * as playTurn from '../scripts/script01/playTurn';
 import * as beatTurn from '../scripts/script01/beatTurn';
 import {RED} from "../utils/solarized";
 
+
 const useFlow = () => {
+  const dispatch = useDispatch()
+  const {
+    curGame,
+    curPlay,
+    curBeat,
+  } = useSelector((state: RootState) => state.flow);
+
   const [gameGoal, setGameGoal] = useState(false)
   const [gameRound, setGameRound] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const [curGame, setCurGame] = useState(0)
-  const [curPlay, setCurPlay] = useState(0)
-  const [curBeat, setCurBeat] = useState(0)
+  // const [curGame, setCurGame] = useState(0)
+  // const [curPlay, setCurPlay] = useState(0)
+  // const [curBeat, setCurBeat] = useState(0)
 
   // const handleFlow = useCallback(() => {
   //   setFlow(p => (p + 1) % nPlayers)
@@ -55,7 +71,7 @@ const useFlow = () => {
     else {
       handleStartPlayTurn()
     }
-    setCurGame(gameTurn.getValue())
+    dispatch(setCurGame(gameTurn.getValue()))
   }, [gameRound])
 
   const handleEndGameTurn = useCallback(() => {
@@ -78,7 +94,7 @@ const useFlow = () => {
     else {
       handleStartBeatTurn()
     }
-    setCurPlay(playTurn.getValue())
+    dispatch(setCurPlay(playTurn.getValue()))
   }, [])
 
   const handleEndPlayTurn = useCallback(() => {
@@ -98,7 +114,7 @@ const useFlow = () => {
       handleEndPlayTurn()
       handleNextPlayTurn()
     }
-    setCurBeat(beatTurn.getValue())
+    dispatch(setCurBeat(beatTurn.getValue()))
   }, [])
 
   // ====== Next ======

@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { cardsSlice } from './features';
+import { flowSlice } from './features';
 
 const store = configureStore({
   reducer: {
     cards: cardsSlice,
+    flow: flowSlice,
   },
 })
 

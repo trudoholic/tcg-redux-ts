@@ -16,7 +16,7 @@ export function onNext() {
     next = turnIterator.next()
     // console.log(`%c (beatTurn::onNext ${next.done})`, 'color:' + RED)
     if (!next.done) {
-        console.log(`%c (wait: ${next.value})`, 'color:' + RED)
+        console.log(`%c (beat: ${next.value})`, 'color:' + RED)
     }
 }
 
