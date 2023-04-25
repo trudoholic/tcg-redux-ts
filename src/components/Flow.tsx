@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {players} from "../utils/constants";
 import useFlow from "../hooks/useFlow";
 import Player from "./Player";
 import FlexRow from "./FlexRow";
@@ -32,8 +33,9 @@ export default function Flow() {
           </>
           : <>
             <FlexRow>
-              <Player test={true}/>
-              <Player test={false}/>
+              {players.map((it, i) => <Player
+                key={it} idx={i} name={it}
+              />)}
             </FlexRow>
                 {/*<Player test={false}/>*/}
             <button onClick={handleNext}>

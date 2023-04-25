@@ -25,16 +25,6 @@ const useFlow = () => {
   const [gameGoal, setGameGoal] = useState(false)
   const [gameRound, setGameRound] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  // const [curGame, setCurGame] = useState(0)
-  // const [curPlay, setCurPlay] = useState(0)
-  // const [curBeat, setCurBeat] = useState(0)
-
-  // const handleFlow = useCallback(() => {
-  //   setFlow(p => (p + 1) % nPlayers)
-  // }, [])
-  // const handleFlow = useCallback(() => {
-  //   setFlow(p => (nPlayers + p - 1) % nPlayers)
-  // }, [])
 
   // ====== Game Session ======
 

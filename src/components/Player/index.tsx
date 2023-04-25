@@ -1,14 +1,16 @@
 import { StyledBox, StyledColumn } from "./styles";
 
 interface IProps {
-    test: boolean
+    idx: number
+    name: string
 }
 
-const Player = ({ test }: IProps) => {
+const Player = ({ idx, name }: IProps) => {
     return (
         <StyledColumn>
-            <StyledBox $primary={test}>Foo</StyledBox>
-            <StyledBox $primary={!test}>Bar</StyledBox>
+            <StyledBox $primary={!!idx}>{name}</StyledBox>
+            <StyledBox $primary={!idx}>{name}</StyledBox>
+            <StyledBox $primary={!idx}>{name}</StyledBox>
         </StyledColumn>
     )
 }
