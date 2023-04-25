@@ -37,7 +37,6 @@ export default function Flow() {
                 key={it} idx={i} name={it}
               />)}
             </FlexRow>
-                {/*<Player test={false}/>*/}
             <button onClick={handleNext}>
               {`GT: ${curGame} PT: ${curPlay} next: ${curBeat}`}
             </button>

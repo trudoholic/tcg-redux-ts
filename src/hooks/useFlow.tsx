@@ -20,7 +20,7 @@ const useFlow = () => {
     curGame,
     curPlay,
     curBeat,
-  } = useSelector((state: RootState) => state.flow);
+  } = useSelector((state: RootState) => state.flow)
 
   const [gameGoal, setGameGoal] = useState(false)
   const [gameRound, setGameRound] = useState(0)
