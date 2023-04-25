@@ -1,10 +1,9 @@
-import {useSelector} from 'react-redux';
-import {RootState} from "../../store";
 import { StyledBox, StyledColumn } from "./styles";
+import useFlow from "../../hooks/useFlow";
 
 interface IProps {
-    idx: number
-    name: string
+  idx: number
+  name: string
 }
 
 const Player = ({ idx, name }: IProps) => {
@@ -12,15 +11,15 @@ const Player = ({ idx, name }: IProps) => {
     curGame,
     curPlay,
     curBeat,
-  } = useSelector((state: RootState) => state.flow)
+  } = useFlow()
 
-    return (
-        <StyledColumn>
-            <StyledBox $primary={idx === curGame}>{name}</StyledBox>
-            <StyledBox $primary={idx === curPlay}>{name}</StyledBox>
-            <StyledBox $primary={idx === curBeat}>{name}</StyledBox>
-        </StyledColumn>
-    )
+  return (
+    <StyledColumn>
+      <StyledBox $primary={idx === curGame}>{name}</StyledBox>
+      <StyledBox $primary={idx === curPlay}>{name}</StyledBox>
+      <StyledBox $primary={idx === curBeat}>{name}</StyledBox>
+    </StyledColumn>
+  )
 }
 
 export default Player
