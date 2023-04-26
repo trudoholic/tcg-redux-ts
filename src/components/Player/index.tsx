@@ -15,9 +15,9 @@ const Player = ({ idx, name }: IProps) => {
 
   return (
     <StyledColumn>
-      <StyledBox $primary={idx === curGame}>{name}</StyledBox>
-      <StyledBox $primary={idx === curPlay}>{name}</StyledBox>
-      <StyledBox $primary={idx === curBeat}>{name}</StyledBox>
+      <StyledBox $tier={0} $primary={idx === curGame}>{name}</StyledBox>
+      <StyledBox $tier={1} $primary={idx === curPlay}>{name}</StyledBox>
+      <StyledBox $tier={2} $primary={idx === curBeat}>{name}</StyledBox>
     </StyledColumn>
   )
 }
