@@ -6,15 +6,17 @@ import FlexRow from "./FlexRow";
 
 export default function Flow() {
   const {
+    curGame,
+    curPlay,
+    curBeat,
+    flowReverse,
     gameOver,
     gameGoal,
     handleStartGame,
     handleEndGame,
     handleNext,
     handleGameGoal,
-    curGame,
-    curPlay,
-    curBeat,
+    handleReverse,
   } = useFlow()
 
   return (
@@ -39,6 +41,9 @@ export default function Flow() {
             </FlexRow>
             <button onClick={handleNext}>
               {`GT: ${curGame} PT: ${curPlay} next: ${curBeat}`}
+            </button>
+            <button onClick={handleReverse}>
+              {`Reverse: ${flowReverse}`}
             </button>
             <button onClick={handleGameGoal}>
               goal

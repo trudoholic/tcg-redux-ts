@@ -2,6 +2,8 @@ import {useCallback, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from "../store";
 import {
+  setFlowReverse,
+  setGameGoal,
   setCurGame,
   setCurPlay,
   setCurBeat,
@@ -17,12 +19,13 @@ import {RED} from "../utils/solarized";
 const useFlow = () => {
   const dispatch = useDispatch()
   const {
+    flowReverse,
+    gameGoal,
     curGame,
     curPlay,
     curBeat,
   } = useSelector((state: RootState) => state.flow)
 
-  const [gameGoal, setGameGoal] = useState(false)
   const [gameRound, setGameRound] = useState(0)
   const [gameOver, setGameOver] = useState(true)
 
@@ -38,7 +41,7 @@ const useFlow = () => {
     handleEndPlayTurn()
     handleEndGameTurn()
     setGameOver(true)
-    setGameGoal(false)
+    dispatch(setGameGoal(false))
     gameSession.onEnd()
   }, [])
 
@@ -120,21 +123,27 @@ const useFlow = () => {
   }, [gameGoal])
 
   const handleGameGoal = useCallback(() => {
-    setGameGoal(true)
+    dispatch(setGameGoal(true))
   }, [])
+
+  const handleReverse = useCallback(() => {
+    dispatch(setFlowReverse(!flowReverse))
+  }, [flowReverse])
 
   // ====== # ======
 
   return {
+    curGame,
+    curPlay,
+    curBeat,
+    flowReverse,
+    gameGoal,
     gameOver,
     handleStartGame,
     handleEndGame,
     handleNext,
     handleGameGoal,
-    curGame,
-    curPlay,
-    curBeat,
-    gameGoal,
+    handleReverse,
   }
 }
 

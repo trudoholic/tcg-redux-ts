@@ -2,12 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface FlowState {
+  flowReverse: boolean
+  gameGoal: boolean
   curGame: number
   curPlay: number
   curBeat: number
 }
 
 const initialState = {
+  flowReverse: false,
+  gameGoal: false,
   curGame: 0,
   curPlay: 0,
   curBeat: 0,
@@ -17,6 +21,12 @@ const flowSlice = createSlice({
   name: 'flow',
   initialState,
   reducers: {
+    setFlowReverse(state, action: PayloadAction<boolean>) {
+      state.flowReverse = action.payload
+    },
+    setGameGoal(state, action: PayloadAction<boolean>) {
+      state.gameGoal = action.payload
+    },
     setCurGame(state, action: PayloadAction<number>) {
       state.curGame = action.payload
     },
@@ -30,6 +40,8 @@ const flowSlice = createSlice({
 })
 
 export const {
+  setFlowReverse,
+  setGameGoal,
   setCurGame,
   setCurPlay,
   setCurBeat,
