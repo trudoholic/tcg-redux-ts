@@ -15,7 +15,7 @@ export function getValue() {
 export function onNext() {
   next = turnIterator.next()
   if (!next.done) {
-    console.log(`%c Раздаёт: ${next.value}`, 'color:' + GREEN)
+    console.log(`%c Играет: ${next.value}`, 'color:' + GREEN)
     console.group(`%c Game Turn: ${next.value}`, 'color:' + GREEN)
   }
 }

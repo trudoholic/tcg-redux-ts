@@ -59,6 +59,7 @@ const useFlow = () => {
       handleStartGameTurn()
     }
     else {
+      playTurn.setStartValue(gameTurn.getValue())
       handleStartPlayTurn()
     }
     dispatch(setCurGame(gameTurn.getValue()))

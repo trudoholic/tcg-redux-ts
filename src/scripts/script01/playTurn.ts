@@ -1,34 +1,36 @@
 import {reset} from ".";
+import {nPlayers} from '../../utils/constants';
 import {BLUE} from "../../utils/solarized";
 
 let turnIterator = reset()
 let next = turnIterator.next()
+let startValue = 0
 
 export function isDone() {
   return next.done
 }
 
 export function getValue() {
-  return next.value
+  return (startValue + next.value) % nPlayers
 }
 
 export function onNext() {
   next = turnIterator.next()
-  // console.log(`%c (playTurn::onNext ${next.done})`, 'color:' + BLUE)
   if (!next.done) {
-    // console.log(`%c (wait: ${next.value})`, 'color:' + BLUE)
-    console.log(`%c Заходит: ${next.value}`, 'color:' + BLUE)
-    console.group(`%c Play Turn: ${next.value}`, 'color:' + BLUE)
+    console.log(`%c Заходит: ${getValue()}`, 'color:' + BLUE)
+    console.group(`%c Play Turn: ${getValue()}`, 'color:' + BLUE)
   }
 }
 
 export function onStart() {
   turnIterator = reset()
-  // console.log(`%c (playTurn::reset)`, 'color:' + BLUE)
-  // onNext()
 }
 
 export function onEnd() {
-  console.log(`%c End Play Turn: ${next.value}`, 'color:' + BLUE)
+  console.log(`%c End Play Turn: ${getValue()}`, 'color:' + BLUE)
   console.groupEnd()
+}
+
+export function setStartValue(value: number) {
+  startValue = value
 }
