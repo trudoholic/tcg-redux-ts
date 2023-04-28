@@ -13,8 +13,9 @@ import * as gameSession from '../scripts/script01/gameSession';
 import * as gameTurn from '../scripts/script01/gameTurn';
 import * as playTurn from '../scripts/script01/playTurn';
 import * as beatTurn from '../scripts/script01/beatTurn';
-import {RED} from "../utils/solarized";
 
+import {nPlayers} from "../utils/constants";
+import {RED} from "../utils/solarized";
 
 const useFlow = () => {
   const dispatch = useDispatch()
@@ -127,7 +128,12 @@ const useFlow = () => {
   }, [])
 
   const handleReverse = useCallback(() => {
+    handleEndPlayTurn()
+    const startValue = (playTurn.getValue() + nPlayers - 1) % nPlayers
+    playTurn.setStartValue(startValue)
+    playTurn.setReverse(!flowReverse)
     dispatch(setFlowReverse(!flowReverse))
+    handleStartPlayTurn()
   }, [flowReverse])
 
   // ====== # ======

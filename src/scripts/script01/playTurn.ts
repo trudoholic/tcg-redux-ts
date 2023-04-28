@@ -5,12 +5,16 @@ import {BLUE} from "../../utils/solarized";
 let turnIterator = reset()
 let next = turnIterator.next()
 let startValue = 0
+let flowReverse = false
 
 export function isDone() {
   return next.done
 }
 
 export function getValue() {
+  if (flowReverse) {
+    return (startValue + nPlayers - next.value) % nPlayers
+  }
   return (startValue + next.value) % nPlayers
 }
 
@@ -33,4 +37,8 @@ export function onEnd() {
 
 export function setStartValue(value: number) {
   startValue = value
+}
+
+export function setReverse(value: boolean) {
+  flowReverse = value
 }
