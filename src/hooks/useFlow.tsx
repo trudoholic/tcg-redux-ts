@@ -12,6 +12,7 @@ import {
 import * as gameSession from '../scripts/script01/gameSession';
 import * as gameTurn from '../scripts/script01/gameTurn';
 import * as playTurn from '../scripts/script01/playTurn';
+import * as playPhase from '../scripts/script01/playPhase';
 import * as beatTurn from '../scripts/script01/beatTurn';
 
 import {nPlayers} from "../utils/constants";
@@ -39,6 +40,7 @@ const useFlow = () => {
   }, [])
 
   const handleEndGame = useCallback(() => {
+    handleEndPlayPhase()
     handleEndPlayTurn()
     handleEndGameTurn()
     setGameOver(true)
@@ -87,13 +89,36 @@ const useFlow = () => {
       handleNextGameTurn()
     }
     else {
-      handleStartBeatTurn()
+      handleStartPlayPhase()
     }
     dispatch(setCurPlay(playTurn.getValue()))
   }, [])
 
   const handleEndPlayTurn = useCallback(() => {
     playTurn.onEnd()
+  }, [])
+
+  // ====== Play Phase ======
+
+  const handleStartPlayPhase = useCallback(() => {
+    playPhase.onStart()
+    handleNextPlayPhase()
+  }, [])
+
+  const handleNextPlayPhase = useCallback(() => {
+    playPhase.onNext()
+    if (playPhase.isDone()) {
+      handleEndPlayTurn()
+      handleNextPlayTurn()
+    }
+    else {
+      handleStartBeatTurn()
+    }
+    // dispatch(setCurPhase(playPhase.getValue()))
+  }, [])
+
+  const handleEndPlayPhase = useCallback(() => {
+    playPhase.onEnd()
   }, [])
 
   // ====== Beat ======
@@ -106,8 +131,8 @@ const useFlow = () => {
     console.log(`%c >> ${beatTurn.getValue()}`, 'color:' + RED)
     beatTurn.onNext()
     if (beatTurn.isDone()) {
-      handleEndPlayTurn()
-      handleNextPlayTurn()
+      handleEndPlayPhase()
+      handleNextPlayPhase()
     }
     dispatch(setCurBeat(beatTurn.getValue()))
   }, [])

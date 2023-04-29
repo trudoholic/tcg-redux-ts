@@ -1,6 +1,6 @@
 import {nPlayers} from '../../utils/constants';
 
-function* getNumber(max: number): Iterator<number> {
+export function* getNumber(max: number): Iterator<number> {
   let i = 0
   while (i < max) {
     yield i++
