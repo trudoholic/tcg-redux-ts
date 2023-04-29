@@ -1,8 +1,8 @@
 import {getNumber} from ".";
 import {ORANGE} from "../../utils/solarized";
 
-// export const phases = ["DrawPhase", "PlayPhase", "HandPhase", "KeepPhase"] as const
-export const phases = ["GamePhase"] as const
+export const phases = ["DrawPhase", "PlayPhase", "HandPhase", "KeepPhase"] as const
+// export const phases = ["GamePhase"] as const
 export const nPhases = phases.length
 // export type TPhases = typeof phases[number]
 
@@ -14,9 +14,9 @@ export function isDone() {
   return next.done
 }
 
-// export function getValue() {
-//   return next.value
-// }
+export function getValue() {
+  return next.value
+}
 
 export function onNext() {
   next = turnIterator.next()

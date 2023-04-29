@@ -8,6 +8,7 @@ export default function Flow() {
   const {
     curGame,
     curPlay,
+    curPhase,
     curBeat,
     flowReverse,
     gameOver,
@@ -39,6 +40,7 @@ export default function Flow() {
                 key={it} idx={i} name={it}
               />)}
             </FlexRow>
+            <p>Phase: {curPhase}</p>
             <button onClick={handleNext}>
               {`GT: ${curGame} PT: ${curPlay} next: ${curBeat}`}
             </button>

@@ -6,6 +6,7 @@ interface FlowState {
   gameGoal: boolean
   curGame: number
   curPlay: number
+  curPhase: number
   curBeat: number
 }
 
@@ -14,6 +15,7 @@ const initialState = {
   gameGoal: false,
   curGame: 0,
   curPlay: 0,
+  curPhase: 0,
   curBeat: 0,
 } as FlowState
 
@@ -33,6 +35,9 @@ const flowSlice = createSlice({
     setCurPlay(state, action: PayloadAction<number>) {
       state.curPlay = action.payload
     },
+    setCurPhase(state, action: PayloadAction<number>) {
+      state.curPhase = action.payload
+    },
     setCurBeat(state, action: PayloadAction<number>) {
       state.curBeat = action.payload
     },
@@ -44,6 +49,7 @@ export const {
   setGameGoal,
   setCurGame,
   setCurPlay,
+  setCurPhase,
   setCurBeat,
 } = flowSlice.actions
 

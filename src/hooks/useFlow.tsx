@@ -6,6 +6,7 @@ import {
   setGameGoal,
   setCurGame,
   setCurPlay,
+  setCurPhase,
   setCurBeat,
 } from '../features/flowSlice';
 
@@ -25,6 +26,7 @@ const useFlow = () => {
     gameGoal,
     curGame,
     curPlay,
+    curPhase,
     curBeat,
   } = useSelector((state: RootState) => state.flow)
 
@@ -114,7 +116,7 @@ const useFlow = () => {
     else {
       handleStartBeatTurn()
     }
-    // dispatch(setCurPhase(playPhase.getValue()))
+    dispatch(setCurPhase(playPhase.getValue()))
   }, [])
 
   const handleEndPlayPhase = useCallback(() => {
@@ -166,6 +168,7 @@ const useFlow = () => {
   return {
     curGame,
     curPlay,
+    curPhase,
     curBeat,
     flowReverse,
     gameGoal,
