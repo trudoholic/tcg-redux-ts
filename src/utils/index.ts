@@ -1,8 +1,8 @@
-import {Card} from '../features/cardsSlice';
+import {ICard} from '../features/cardsSlice';
 
 let count = 0
 
-export const getCard = (): Card => {
+export const getCard = (): ICard => {
   const cardId = "card_" + count.toString().padStart(3, "0")
   count++
   return {
@@ -12,7 +12,7 @@ export const getCard = (): Card => {
   }
 }
 
-export const getCards = (num: number): Card[] => {
+export const getCards = (num: number): ICard[] => {
   return Array(num).fill(0).map(
     it => getCard()
   )

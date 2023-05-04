@@ -1,12 +1,13 @@
 import { StyledBox, StyledColumn } from "./styles";
 import useFlow from "../../hooks/useFlow";
+import {IPlayer} from "../../scripts/script01/players";
 
 interface IProps {
   idx: number
-  name: string
+  player: IPlayer
 }
 
-const Player = ({ idx, name }: IProps) => {
+const Player = ({ idx, player }: IProps) => {
   const {
     curGame,
     curPlay,
@@ -15,9 +16,9 @@ const Player = ({ idx, name }: IProps) => {
 
   return (
     <StyledColumn>
-      <StyledBox $tier={0} $primary={idx === curGame}>{name}</StyledBox>
-      <StyledBox $tier={1} $primary={idx === curPlay}>{name}</StyledBox>
-      <StyledBox $tier={2} $primary={idx === curBeat}>{name}</StyledBox>
+      <StyledBox $tier={0} $primary={idx === curGame}>{player.name}</StyledBox>
+      <StyledBox $tier={1} $primary={idx === curPlay}>{`${player.totalScore}`}</StyledBox>
+      <StyledBox $tier={2} $primary={idx === curBeat}>{`${player.score}`}</StyledBox>
     </StyledColumn>
   )
 }

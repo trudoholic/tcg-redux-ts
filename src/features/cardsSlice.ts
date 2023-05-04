@@ -4,13 +4,13 @@ import {
 } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
-export interface Card {
+export interface ICard {
   id: string
   name: string
   flag: boolean
 }
 
-const cardAdapter = createEntityAdapter<Card>({
+const cardAdapter = createEntityAdapter<ICard>({
   selectId: it => it.id,
   sortComparer: (a, b) => a.name.localeCompare(b.name),
 })

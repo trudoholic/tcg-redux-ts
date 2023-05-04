@@ -41,7 +41,7 @@ export default function Flow() {
           : <>
             <FlexRow>
               {players.map((it, i) => <Player
-                key={it.id} idx={i} name={it.name}
+                key={it.id} idx={i} player={it}
               />)}
             </FlexRow>
             <p>Phase: {curPhase}</p>
