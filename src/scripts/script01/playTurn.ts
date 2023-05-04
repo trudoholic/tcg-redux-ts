@@ -1,5 +1,5 @@
 import {reset} from ".";
-import {nPlayers} from '../../utils/constants';
+import {nPlayers} from './players';
 import {BLUE} from "../../utils/solarized";
 
 let turnIterator = reset()

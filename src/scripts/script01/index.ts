@@ -1,4 +1,4 @@
-import {nPlayers} from '../../utils/constants';
+import {nPlayers} from './players';
 
 export function* getNumber(max: number): Iterator<number> {
   let i = 0

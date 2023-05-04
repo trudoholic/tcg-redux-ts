@@ -9,9 +9,9 @@ import {
   setCurPhase,
   setCurBeat,
 } from '../features/flowSlice';
-import {gameSession, gameTurn, playTurn, playPhase, beatTurn} from "../scripts";
-
-import {nPlayers} from "../utils/constants";
+import {
+  nPlayers, gameSession, gameTurn, playTurn, playPhase, beatTurn
+} from "../scripts";
 import {RED} from "../utils/solarized";
 
 const useFlow = () => {

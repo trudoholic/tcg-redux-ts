@@ -1,5 +1,5 @@
 export const playerNames = ["North", "East", "South", "West"] as const
-// export const nPlayers = playerNames.length
+export const nPlayers = playerNames.length
 // export type TPlayers = typeof players[number]
 
 export interface IPlayer {
