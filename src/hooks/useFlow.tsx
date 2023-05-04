@@ -9,12 +9,7 @@ import {
   setCurPhase,
   setCurBeat,
 } from '../features/flowSlice';
-
-import * as gameSession from '../scripts/script01/gameSession';
-import * as gameTurn from '../scripts/script01/gameTurn';
-import * as playTurn from '../scripts/script01/playTurn';
-import * as playPhase from '../scripts/script01/playPhase';
-import * as beatTurn from '../scripts/script01/beatTurn';
+import {gameSession, gameTurn, playTurn, playPhase, beatTurn} from "../scripts";
 
 import {nPlayers} from "../utils/constants";
 import {RED} from "../utils/solarized";
