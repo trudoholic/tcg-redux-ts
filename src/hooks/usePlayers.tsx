@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {playersList} from "../scripts/script01/players";
+import {playersList} from "../scripts";
 import {
   selectAllPlayers,
   playersAdd,
