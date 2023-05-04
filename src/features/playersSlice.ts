@@ -3,9 +3,9 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import {RootState} from "../store";
-import {IPlayer} from "../scripts/script01/players";
+import {TPlayer} from "../scripts";
 
-const playersAdapter = createEntityAdapter<IPlayer>({
+const playersAdapter = createEntityAdapter<TPlayer>({
   selectId: it => it.id,
   sortComparer: (a, b) => a.name.localeCompare(b.name),
 })

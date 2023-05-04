@@ -1,10 +1,10 @@
 import { StyledBox, StyledColumn } from "./styles";
 import useFlow from "../../hooks/useFlow";
-import {IPlayer} from "../../scripts/script01/players";
+import {TPlayer} from "../../scripts";
 
 interface IProps {
   idx: number
-  player: IPlayer
+  player: TPlayer
 }
 
 const Player = ({ idx, player }: IProps) => {
