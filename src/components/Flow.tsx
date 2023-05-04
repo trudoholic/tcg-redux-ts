@@ -1,6 +1,6 @@
-import * as React from 'react';
-import {players} from "../utils/constants";
+import * as React from "react";
 import useFlow from "../hooks/useFlow";
+import usePlayers from "../hooks/usePlayers";
 import Player from "./Player";
 import FlexRow from "./FlexRow";
 
@@ -20,6 +20,10 @@ export default function Flow() {
     handleReverse,
   } = useFlow()
 
+  const {
+    players,
+  } = usePlayers()
+
   return (
     <div className="card">
       {gameOver
@@ -37,7 +41,7 @@ export default function Flow() {
           : <>
             <FlexRow>
               {players.map((it, i) => <Player
-                key={it} idx={i} name={it}
+                key={it.id} idx={i} name={it.name}
               />)}
             </FlexRow>
             <p>Phase: {curPhase}</p>
