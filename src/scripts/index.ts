@@ -8,3 +8,10 @@ import * as beatTurn from "./script01/beatTurn"
 export type {IPlayer as TPlayer}
 export {playersList, nPlayers}
 export {gameSession, gameTurn, playTurn, playPhase, beatTurn}
+
+export function* getNumber(max: number): Iterator<number> {
+  let i = 0
+  while (i < max) {
+    yield i++
+  }
+}

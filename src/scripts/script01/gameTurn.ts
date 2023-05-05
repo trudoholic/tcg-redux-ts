@@ -1,6 +1,8 @@
-import {reset} from ".";
+import {getNumber} from "..";
+import {nPlayers} from './players';
 import {GREEN} from "../../utils/solarized";
 
+const reset = () => getNumber(nPlayers)
 let turnIterator = reset()
 let next = turnIterator.next()
 
