@@ -109,6 +109,7 @@ const useFlow = () => {
       handleNextPlayTurn()
     }
     else {
+      beatTurn.setStartValue(playTurn.getValue())
       handleStartBeatTurn()
     }
     dispatch(setCurPhase(playPhase.getValue()))
@@ -154,6 +155,11 @@ const useFlow = () => {
     const startValue = (playTurn.getValue() + nPlayers - 1) % nPlayers
     playTurn.setStartValue(startValue)
     playTurn.setReverse(!flowReverse)
+
+    beatTurn.setStartValue(startValue)
+    beatTurn.setReverse(!flowReverse)
+    dispatch(setCurBeat(beatTurn.getValue()))
+
     dispatch(setFlowReverse(!flowReverse))
     handleStartPlayTurn()
   }, [flowReverse])

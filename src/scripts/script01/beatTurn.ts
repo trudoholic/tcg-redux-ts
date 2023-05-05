@@ -5,20 +5,24 @@ import {RED} from "../../utils/solarized";
 const reset = () => getNumber(nPlayers)
 let turnIterator = reset()
 let next = turnIterator.next()
+let startValue = 0
+let flowReverse = false
 
 export function isDone() {
     return next.done
 }
 
 export function getValue() {
-    return next.value
+    if (flowReverse) {
+        return (startValue + nPlayers - next.value) % nPlayers
+    }
+    return (startValue + next.value) % nPlayers
 }
 
 export function onNext() {
     next = turnIterator.next()
-    // console.log(`%c (beatTurn::onNext ${next.done})`, 'color:' + RED)
     if (!next.done) {
-        console.log(`%c (beat: ${next.value})`, 'color:' + RED)
+        console.log(`%c (beat: ${getValue()})`, 'color:' + RED)
     }
 }
 
@@ -32,3 +36,10 @@ export function onStart() {
 //   console.groupEnd()
 // }
 
+export function setStartValue(value: number) {
+    startValue = value
+}
+
+export function setReverse(value: boolean) {
+    flowReverse = value
+}
