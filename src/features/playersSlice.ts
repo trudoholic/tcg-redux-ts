@@ -3,19 +3,19 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import {RootState} from "../store";
-import {TPlayer} from "../scripts";
+import {TPlayer, playersList} from "../scripts";
 
 const playersAdapter = createEntityAdapter<TPlayer>({
   selectId: it => it.id,
   sortComparer: (a, b) => a.name.localeCompare(b.name),
 })
 
-const { selectAll } = playersAdapter.getSelectors((state: RootState) => state.players)
-export const selectAllPlayers = selectAll
+const emptyInitialState = playersAdapter.getInitialState();
+const filledState = playersAdapter.upsertMany(emptyInitialState, playersList);
 
 export const playersSlice = createSlice({
   name: 'players',
-  initialState: playersAdapter.getInitialState(),
+  initialState: filledState,
   reducers: {
     playersAdd: playersAdapter.addMany,
     playerUpdate: playersAdapter.updateOne,
@@ -24,11 +24,12 @@ export const playersSlice = createSlice({
   },
 })
 
+const { selectAll } = playersAdapter.getSelectors((state: RootState) => state.players)
+export const selectAllPlayers = selectAll
+
 export const {
-  playersAdd,
-  // playerUpdate,
+  playerUpdate,
   // playersUpdate,
-  playersRemove,
 } = playersSlice.actions
 
 export default playersSlice.reducer

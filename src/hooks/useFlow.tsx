@@ -12,6 +12,7 @@ import {
 import {
   nPlayers, gameSession, gameTurn, playTurn, playPhase, beatTurn
 } from "../scripts";
+import usePlayers from "./usePlayers";
 import {RED} from "../utils/solarized";
 
 const useFlow = () => {
@@ -24,6 +25,11 @@ const useFlow = () => {
     curPhase,
     curBeat,
   } = useSelector((state: RootState) => state.flow)
+
+  const {
+    players,
+    handleScore,
+  } = usePlayers()
 
   const [gameRound, setGameRound] = useState(0)
   const [gameOver, setGameOver] = useState(true)
@@ -93,6 +99,7 @@ const useFlow = () => {
 
   const handleEndPlayTurn = useCallback(() => {
     playTurn.onEnd()
+    handleScore()
   }, [])
 
   // ====== Play Phase ======
@@ -179,6 +186,7 @@ const useFlow = () => {
     handleNext,
     handleGameGoal,
     handleReverse,
+    players,
   }
 }
 
