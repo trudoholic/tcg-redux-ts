@@ -1,4 +1,4 @@
-export const playerNames = ["North", "East", "South", "West"] as const
+export const playerNames = ["0:North", "1:East", "2:South", "3:West"] as const
 export const nPlayers = playerNames.length
 // export type TPlayers = typeof players[number]
 

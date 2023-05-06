@@ -11,16 +11,20 @@ const usePlayers = () => {
 
   const players = useSelector(selectAllPlayers)
   // console.log("players:", players)
+  function rndPlayer() {
+    const rnd = Math.floor(Math.random() * players.length)
+    console.log("players:", players)
+    console.log("rnd:", rnd)
+    return players.at(rnd)
+  }
 
   const handleScore = useCallback(() => {
-    const rnd = Math.floor(Math.random() * players.length)
-    const player = players.at(rnd)
-    console.log("players:", players)
-    console.log("player:", rnd, player)
+    const player = rndPlayer()
+    console.log("player:", player)
     if (player) {
       dispatch(playerUpdate({ id: player.id, changes: {score: player.score + 1} }))
     }
-  }, [])
+  }, [rndPlayer])
 
   return {
     players,
