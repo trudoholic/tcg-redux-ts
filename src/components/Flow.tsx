@@ -1,5 +1,6 @@
 import * as React from "react";
 import useFlow from "../hooks/useFlow";
+import usePlayers from "../hooks/usePlayers";
 import Player from "./Player";
 import FlexRow from "./FlexRow";
 
@@ -17,8 +18,11 @@ export default function Flow() {
     handleNext,
     handleGameGoal,
     handleReverse,
-    players,
   } = useFlow()
+
+  const {
+    players,
+  } = usePlayers()
 
   return (
     <div className="card">

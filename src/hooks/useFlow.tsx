@@ -27,7 +27,6 @@ const useFlow = () => {
   } = useSelector((state: RootState) => state.flow)
 
   const {
-    players,
     handleScore,
   } = usePlayers()
 
@@ -186,7 +185,6 @@ const useFlow = () => {
     handleNext,
     handleGameGoal,
     handleReverse,
-    players,
   }
 }
 
