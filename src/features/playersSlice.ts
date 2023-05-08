@@ -1,9 +1,10 @@
 import {
   createEntityAdapter,
   createSlice,
+  PayloadAction,
 } from "@reduxjs/toolkit";
 import {RootState} from "../store";
-import {TPlayer, playersList, callbackFn} from "../scripts";
+import {TPlayer, TAction, playersList, callbackFn} from "../scripts";
 
 const playersAdapter = createEntityAdapter<TPlayer>({
   selectId: it => it.id,
@@ -18,9 +19,10 @@ export const playersSlice = createSlice({
   initialState: filledState,
   reducers: {
     playersAdd: playersAdapter.addMany,
-    playersUpdate: (state) => {
+
+    playersUpdate: (state, action: PayloadAction<TAction>) => {
       const players = playersAdapter.getSelectors().selectAll(state)
-      const updates = players.map(callbackFn)
+      const updates = players.map(callbackFn(action.payload))
       playersAdapter.updateMany(state, updates)
     },
 

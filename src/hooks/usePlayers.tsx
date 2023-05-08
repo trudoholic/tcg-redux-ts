@@ -4,15 +4,15 @@ import {
   selectAllPlayers,
   playersUpdate,
 } from "../features/playersSlice";
-// import {callbackFn} from "../scripts";
+import {TAction} from "../scripts";
 
 const usePlayers = () => {
   const dispatch = useDispatch()
 
   const players = useSelector(selectAllPlayers)
 
-  const handleScore = useCallback(() => {
-    dispatch(playersUpdate())
+  const handleScore = useCallback((action: TAction) => {
+    dispatch(playersUpdate(action))
   }, [])
 
   return {

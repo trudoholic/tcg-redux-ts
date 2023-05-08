@@ -10,7 +10,7 @@ import {
   setCurBeat,
 } from '../features/flowSlice';
 import {
-  nPlayers, gameSession, gameTurn, playTurn, playPhase, beatTurn
+  nPlayers, random, gameSession, gameTurn, playTurn, playPhase, beatTurn
 } from "../scripts";
 import usePlayers from "./usePlayers";
 import {RED} from "../utils/solarized";
@@ -74,6 +74,7 @@ const useFlow = () => {
   }, [gameRound])
 
   const handleEndGameTurn = useCallback(() => {
+    handleScore({type: "onGameTurn"})
     gameTurn.onEnd()
   }, [])
 
@@ -97,8 +98,10 @@ const useFlow = () => {
   }, [])
 
   const handleEndPlayTurn = useCallback(() => {
+    const playerId = `${random()}`
+    // console.log(" onPlayTurn:", playerId)
+    handleScore({type: "onPlayTurn", id: playerId})
     playTurn.onEnd()
-    handleScore()
   }, [])
 
   // ====== Play Phase ======
