@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import {getCard, getCards} from '../utils';
+import {getCard, getCards, getCardAsync} from '../utils';
 import {
   selectAllCards,
   cardsAddOne,
@@ -11,6 +11,7 @@ import {
 
 const useCards = () => {
   const [selectedId, setSelectedId] = useState("")
+  const [waiting, setWaiting] = useState(false)
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
     setSelectedId((e.target as HTMLElement).id)
@@ -36,6 +37,14 @@ const useCards = () => {
     const card = getCard()
     dispatch(cardsAddOne(card))
     setSelectedId(card.id)
+  }, [])
+
+  const handleAddOneAsync = useCallback(async () => {
+    setWaiting(true)
+    const card = await getCardAsync()
+    dispatch(cardsAddOne(card))
+    setSelectedId(card.id)
+    setWaiting(false)
   }, [])
 
   const handleAddMany = useCallback(() => {
@@ -65,9 +74,11 @@ const useCards = () => {
   return {
     cardItems,
     handleAddOne,
+    handleAddOneAsync,
     handleAddMany,
     handleUpdate,
     handleRemove,
+    waiting,
   }
 }
 

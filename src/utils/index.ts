@@ -14,6 +14,16 @@ export const getCard = (): ICard => {
 
 export const getCards = (num: number): ICard[] => {
   return Array(num).fill(0).map(
-    it => getCard()
+    () => getCard()
   )
+}
+
+export const getCardAsync = () => {
+  return wait(getCard(), 1000)
+}
+
+function wait<T>(value: T, duration: number) {
+  return new Promise<T>(resolve => {
+    setTimeout(() => resolve(value), duration)
+  })
 }

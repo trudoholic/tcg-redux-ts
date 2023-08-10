@@ -5,15 +5,20 @@ export default function Cards() {
   const {
     cardItems,
     handleAddOne,
+    handleAddOneAsync,
     handleAddMany,
     handleUpdate,
     handleRemove,
+    waiting,
   } = useCards()
 
   return (
     <div className="card">
       <button onClick={handleAddOne}>
         AddOne
+      </button>
+      <button disabled={waiting} onClick={handleAddOneAsync}>
+        {waiting? "Wait...": "AddAsync"}
       </button>
       <button onClick={handleAddMany}>
         AddMany
